@@ -25,8 +25,8 @@ public class Request extends HashMap<String, String> {
 		String lijn = "";
 		while ((lijn=socketInputStream.readLine()) != null)
 		{
-			String[] header = lijn.split(":",2);
-			put(header[0], header[1]);
+			String[] headerlijn = lijn.split(":",2);
+			put(headerlijn[0], headerlijn[1]);
 		}
     
 	}
