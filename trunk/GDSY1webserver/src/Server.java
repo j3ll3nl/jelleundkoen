@@ -5,8 +5,8 @@ import java.net.*;
 public class Server extends ServerSocket implements Runnable {
     private String link;
 
-    public Server(InetAddress host, int port, String l) throws IOException{
-        super(port,50, host);
+    public Server(InetAddress h, int p, String l) throws IOException{
+        super(p,50, h);
         link = l;
     }
 
