@@ -6,8 +6,12 @@ import java.io.*;
 
 public class Service implements Runnable{
 
-    public Service(Socket socket, String link) throws Exception {
+    private Socket serverSocket;
+    private String link;
 
+    public Service(Socket sk, String l) throws Exception {
+        serverSocket = sk;
+        link = l;
     }
 
     public void closeSocket(){
