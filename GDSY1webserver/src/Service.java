@@ -7,17 +7,17 @@ import java.io.*;
 public class Service implements Runnable{
 
     private Socket serverSocket;
-    private String link;
+    private String contentbase;
 
-    public Service(Socket sk, String l) throws Exception {
+    public Service(Socket sk, String contentbase) throws Exception {
         serverSocket = sk;
-        link = l;
+        this.contentbase = contentbase;
 
         SocketInputStream input = new  SocketInputStream(serverSocket.getInputStream());
 		Request request = new Request(input);
 	    System.out.println(request);
         
-        Servlet svlt = new Servlet();
+        Servlet svlt = new Servlet(this.contentbase);
         
         OutputStream os = serverSocket.getOutputStream();
         os.write((svlt.service(request)).getBytes());
