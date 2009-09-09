@@ -10,9 +10,9 @@ public class Control {
     private Thread thread = null;
 	private Server server = null;
 
-    private String host = "";
+    private String host;
     private int port;
-    private String link = "http://localhost/webserver.html";
+    private String link;
     private String logs;
 
     public Control(){
@@ -32,7 +32,9 @@ public class Control {
             // Om te testen -----
             host = adreslijst[0].getHostAddress();
             port = 1337;
+            link = "http://localhost/webserver.html";
             System.out.println(host);
+
             server = new Server(host, port, link);
             thread = new Thread(server);
             thread.start();
