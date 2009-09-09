@@ -34,7 +34,7 @@ public class Server extends ServerSocket implements Runnable {
 		}
 		catch(SocketException e)
 		{
-			System.out.println("Een fout in de socket; " + e.getMessage());
+			System.out.println("Een fout in de socket:" + e.getMessage());
 		}
 		catch(Exception e)
 		{
