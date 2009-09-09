@@ -12,7 +12,7 @@ public class Control {
 
     private InetAddress host;
     private int port;
-    private String link;
+    private String contentbase;
     private String logs;
 
     public Control(){
@@ -32,10 +32,10 @@ public class Control {
             // Om te testen -----
             host = adreslijst[0];
             port = 1337;
-            link = "http://localhost/webserver.html";
+            contentbase = "c:";
             System.out.println(host);
 
-            server = new Server(host, port, link);
+            server = new Server(host, port, contentbase);
             thread = new Thread(server);
             thread.start();
         }

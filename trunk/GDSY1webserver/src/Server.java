@@ -3,11 +3,11 @@ import java.io.*;
 import java.net.*;
 
 public class Server extends ServerSocket implements Runnable {
-    private String link;
+    private String contentbase;
 
-    public Server(InetAddress h, int p, String l) throws IOException{
+    public Server(InetAddress h, int p, String c) throws IOException{
         super(p,50, h);
-        this.link = l;
+        this.contentbase = c;
     }
 
     public boolean isAlive(){
@@ -29,7 +29,7 @@ public class Server extends ServerSocket implements Runnable {
 			{
 				System.out.println(this);
 				Socket serverSocket = super.accept();
-				new Thread(new Service(serverSocket,link)).start();
+				new Thread(new Service(serverSocket,contentbase)).start();
 			}
 		}
 		catch(SocketException e)
