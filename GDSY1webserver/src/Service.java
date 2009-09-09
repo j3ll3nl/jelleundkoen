@@ -12,6 +12,11 @@ public class Service implements Runnable{
     public Service(Socket sk, String l) throws Exception {
         serverSocket = sk;
         link = l;
+
+        SocketInputStream input = new  SocketInputStream(serverSocket.getInputStream());
+		Request request = new Request(input);
+	    System.out.println(request);
+
     }
 
     public void closeSocket(){

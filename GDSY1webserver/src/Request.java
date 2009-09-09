@@ -10,8 +10,10 @@ public class Request extends HashMap<String, String> {
 	private String uri=null;
 	private String version=null;
 
-	public Request() throws IOException
+	public Request(SocketInputStream sis) throws IOException
 	{
+
+
 	/*
 		String requestline =
 		String[] splitline = requestline.split(" ");
