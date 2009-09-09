@@ -10,7 +10,7 @@ public class Control {
     private Thread thread = null;
 	private Server server = null;
 
-    private String host;
+    private InetAddress host;
     private int port;
     private String link;
     private String logs;
@@ -30,7 +30,7 @@ public class Control {
             InetAddress[] adreslijst = InetAddress.getAllByName(InetAddress.getLocalHost().getHostName());
 
             // Om te testen -----
-            host = adreslijst[0].getHostAddress();
+            host = adreslijst[0];
             port = 1337;
             link = "http://localhost/webserver.html";
             System.out.println(host);
