@@ -16,6 +16,12 @@ public class Service implements Runnable{
         SocketInputStream input = new  SocketInputStream(serverSocket.getInputStream());
 		Request request = new Request(input);
 	    System.out.println(request);
+        
+        Servlet svlt = new Servlet();
+        
+        OutputStream os = serverSocket.getOutputStream();
+        os.write((svlt.service(request)).getBytes());
+        os.close();
 
     }
 
