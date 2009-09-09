@@ -7,7 +7,7 @@ public class Server extends ServerSocket implements Runnable {
 
     public Server(InetAddress h, int p, String l) throws IOException{
         super(p,50, h);
-        link = l;
+        this.link = l;
     }
 
     public boolean isAlive(){
