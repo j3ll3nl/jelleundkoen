@@ -4,16 +4,17 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Servlet {
-    public String response;
+    public Response response;
     public String contentbase;
     public Request request;
 
     public Servlet(String contentbase){
-        this.response = "";
         this.contentbase = contentbase;
+
+        this.response = new Response();
     }
 
-    public String service(Request r){
+    public Response service(Request r){
         this.request = r;
         
         if (r.getMETHOD().equals("CONNECT"))
@@ -37,11 +38,11 @@ public class Servlet {
     }
 
     public void CONNECT() {
-        this.response = "method not implemented";
+        this.response.setStatusLine("501");
     }
 
     public void DELETE() {
-        this.response = "method not implemented";
+        this.response.setStatusLine("501");
     }
 
     public void GET() {
@@ -49,43 +50,50 @@ public class Servlet {
         File file = new File(this.contentbase + filename);
 
         if (file.exists()) {
-
+            String body = "";
+        
             try {
                 FileReader fr = new FileReader(file);
                 BufferedReader reader = new BufferedReader(fr);
                 String line;
 
                 while ((line = reader.readLine()) != null) {
-                    this.response += line;
+                    body += line;
                 }
 
                 reader.close();
                 fr.close();
 
+             this.response.setStatusLine("200", "OK");
+
             } catch (IOException e) {
                 e.printStackTrace();
+                this.response.setStatusLine("501", "IOException");
             }
-
-        } else this.response = "404 ERROR FILE NOT FOUND";
+            this.response.setEntityBody(body);
+        } else {
+            // file bestaat niet
+            this.response.setStatusLine("404", "File not found");
+        }
     }
 
     public void HEAD() {
-        this.response = "method not implemented";
+        this.response.setStatusLine("501", "Not Implemented");
     }
 
     public void OPTIONS() {
-        this.response = "method not implemented";
+        this.response.setStatusLine("501", "Not Implemented");
     }
 
     public void POST() {
-        this.response = "method not implemented";
+        this.response.setStatusLine("501", "Not Implemented");
     }
 
     public void PUT() {
-        this.response = "method not implemented";
+        this.response.setStatusLine("501", "Not Implemented");
     }
 
     public void TRACE() {
-        this.response = "method not implemented";
+        this.response.setStatusLine("501", "Not Implemented");
     }
 }
