@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.net.*;
+import javax.swing.JFrame;
 
 
 
@@ -15,7 +16,12 @@ public class Control {
     private String contentbase;
     private String logs;
 
+    private JFrame Gui;
+
     public Control(){
+        Gui = new MyJFrame();
+        Gui.setVisible(true);
+        
         try {
             doStart();
 
