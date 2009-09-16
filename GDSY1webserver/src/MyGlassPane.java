@@ -21,7 +21,6 @@ public class MyGlassPane extends JComponent {
     @Override
     protected void paintComponent(Graphics g)
     {
-        System.out.println("MyGlassPane.paintComponent()");
         Graphics2D LayerNumber = (Graphics2D)g;
         LayerNumber.setFont(font);
         LayerNumber.setColor(Color.BLUE);

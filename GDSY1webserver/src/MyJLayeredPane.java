@@ -17,7 +17,6 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener{
     }
 
     public void mouseWheelMoved(MouseWheelEvent mwe){
-        System.out.println("MyLayeredPane.mouseWheelMoved("+mwe+")");
         int rotation = mwe.getWheelRotation();
         int top = getComponentCountInLayer(JLayeredPane.DEFAULT_LAYER);
         Component[] component = getComponentsInLayer(JLayeredPane.DEFAULT_LAYER);
