@@ -13,12 +13,14 @@ public class Control {
 
     private InetAddress host;
     private int port;
-    private String contentbase;
+    public static String contentbase;
     private String logs;
 
     private JFrame Gui;
 
     public Control(){
+        Control.contentbase = "c:";
+        
         Gui = new MyJFrame();
         Gui.setVisible(true);
         
@@ -38,7 +40,6 @@ public class Control {
             // Om te testen -----
             host = adreslijst[0];
             port = 1337;
-            contentbase = "c:";
             System.out.println(host);
 
             server = new Server(host, port, contentbase);

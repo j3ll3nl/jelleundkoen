@@ -59,7 +59,7 @@ class MyJPanel extends JPanel{
             this.add(contentbaseLable);
             contentbaseLable.setText("ContentBase: ");
 
-            contentbaseField = new JTextField("C:/eenbestand die ik nu nog niet kan benoemen");
+            contentbaseField = new JTextField("C:/eenbestand die ik nu nog niet kan benoemen"); // Nu kan je bij de contentbase
             contentbaseField.setName("contentbaseField");
             this.add(contentbaseField);
 
