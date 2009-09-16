@@ -13,9 +13,11 @@ public class MyJFrame extends JFrame {
         setName("Webserver");
         setTitle("Webserver");
         setResizable(false);
-        setBounds(10, 10, 500, 500);
+        setBounds(10, 10, 900, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+        getGlassPane().setVisible(true);
     }
 
     @Override
