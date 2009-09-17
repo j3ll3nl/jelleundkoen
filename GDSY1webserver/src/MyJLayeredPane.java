@@ -7,13 +7,20 @@ import javax.swing.JLayeredPane;
 class MyJLayeredPane extends JLayeredPane implements MouseWheelListener{
     private static final long serialVersionUID = 1L;
 
-    MyJLayeredPane(){
+    private Control control;
+
+    MyJLayeredPane(Control c){
+        control = c;
         setName("MyLayeredPane");
 
-        add(new MyJPanel(), JLayeredPane.DEFAULT_LAYER);
-        add(new MyJPanel(), JLayeredPane.DEFAULT_LAYER);
+        add(new MyJPanel(control), JLayeredPane.DEFAULT_LAYER);
+        
 
         addMouseWheelListener(this);
+    }
+
+    addNewLayer(){
+        add(new MyJPanel(control), JLayeredPane.DEFAULT_LAYER);
     }
 
     public void mouseWheelMoved(MouseWheelEvent mwe){
