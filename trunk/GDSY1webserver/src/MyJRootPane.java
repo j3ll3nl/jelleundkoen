@@ -9,26 +9,29 @@ import javax.swing.JRootPane;
 public class MyJRootPane extends JRootPane {
   private static final long serialVersionUID = 1L;
 
-  public MyJRootPane()
+  private Control control;
+
+  public MyJRootPane(Control c)
   {
+    control = c;
     setName("MyJRootPane");
   }
 
   @Override
   protected Component createGlassPane()
   {
-    return new MyGlassPane();
+    return new MyGlassPane(control);
   }
 
   @Override
   protected JLayeredPane createLayeredPane()
   {
-    return new MyJLayeredPane();
+    return new MyJLayeredPane(control);
   }
 
   @Override
   protected Container createContentPane()
   {
-    return new MyContentPane();
+    return new MyContentPane(control);
   }
 }

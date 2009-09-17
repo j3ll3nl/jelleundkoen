@@ -26,8 +26,11 @@ class MyJPanel extends JPanel{
     private JTextField portField,contentbaseField;
     private JButton actionButton;
 
-    MyJPanel(){
+    private Control control;
+
+    MyJPanel(Control c){
         try {
+            control = c;
             setLayout(new FlowLayout());
             setSize(900, 35);
 
@@ -44,6 +47,7 @@ class MyJPanel extends JPanel{
             this.add(hostCombobox);
             hostCombobox.setModel(hostListModel);
             hostCombobox.setSelectedItem(adress);
+            hostCombobox.addItemListener(control);
 
             portLable = new JLabel();
             portLable.setName("portLable");

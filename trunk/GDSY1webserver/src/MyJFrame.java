@@ -7,9 +7,13 @@ import javax.swing.JRootPane;
 public class MyJFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     
+    private Control control;
+
     JRootPane MyRootPane;
 
-    public MyJFrame(){
+    public MyJFrame(Control c){
+        control = c;
+        
         setName("Webserver");
         setTitle("Webserver");
         setResizable(false);
@@ -23,7 +27,7 @@ public class MyJFrame extends JFrame {
     @Override
     protected JRootPane createRootPane()
     {
-        return new MyJRootPane();
+        return new MyJRootPane(control);
     }
 
 }

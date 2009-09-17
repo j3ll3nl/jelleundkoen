@@ -11,10 +11,13 @@ public class MyGlassPane extends JComponent {
     private static final long serialVersionUID = 1L;
     private Font font = new Font("monospaced", Font.PLAIN, 64);
 
+    private Control control;
+
     public int number = 1;
 
-    MyGlassPane()
+    MyGlassPane(Control c)
     {
+        control = c;
         setName("MyGlassPane");
     }
 
