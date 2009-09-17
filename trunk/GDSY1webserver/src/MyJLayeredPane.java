@@ -3,24 +3,38 @@ import java.awt.Component;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import javax.swing.JLayeredPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 class MyJLayeredPane extends JLayeredPane implements MouseWheelListener{
     private static final long serialVersionUID = 1L;
 
     private Control control;
 
+    private JScrollPane MyJScrollPane;
+    private JTextPane MyJTextPane;
+
     MyJLayeredPane(Control c){
         control = c;
         setName("MyLayeredPane");
-
-        add(new MyJPanel(control), JLayeredPane.DEFAULT_LAYER);
-        
-
         addMouseWheelListener(this);
+
+        addNewLayer();
     }
 
-    addNewLayer(){
-        add(new MyJPanel(control), JLayeredPane.DEFAULT_LAYER);
+    public void addNewLayer(){
+        MyJTextPane = new JTextPane();
+        MyJTextPane.setBackground(Color.WHITE);
+        MyJTextPane.setSize(900, 200);
+        MyJTextPane.setText("Blah");
+        
+        MyJScrollPane = new JScrollPane();
+        MyJScrollPane.setBounds(0, 35, 899, 200);
+        MyJScrollPane.setSize(899, 200);
+        MyJScrollPane.add(MyJTextPane);
+        
+        add(MyJScrollPane, JLayeredPane.DEFAULT_LAYER);
+
     }
 
     public void mouseWheelMoved(MouseWheelEvent mwe){

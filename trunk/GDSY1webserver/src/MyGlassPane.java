@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 
 public class MyGlassPane extends JComponent {
     private static final long serialVersionUID = 1L;
-    private Font font = new Font("monospaced", Font.PLAIN, 64);
+    private Font font = new Font("monospaced", Font.PLAIN, 50);
 
     private Control control;
 
@@ -27,7 +27,7 @@ public class MyGlassPane extends JComponent {
         Graphics2D LayerNumber = (Graphics2D)g;
         LayerNumber.setFont(font);
         LayerNumber.setColor(Color.BLUE);
-        LayerNumber.drawString("- "+number+" -", 100, 200);
+        LayerNumber.drawString("- "+number+" -", 700, 100);
     }
 
 }
