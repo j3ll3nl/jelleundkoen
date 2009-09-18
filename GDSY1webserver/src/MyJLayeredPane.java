@@ -1,53 +1,57 @@
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import javax.swing.JLayeredPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 class MyJLayeredPane extends JLayeredPane implements MouseWheelListener{
     private static final long serialVersionUID = 1L;
 
-    private Control control;
-
     private JScrollPane MyJScrollPane;
     private JTextPane MyJTextPane;
+    private int layer = 1;
 
-    MyJLayeredPane(Control c){
-        control = c;
+    MyJLayeredPane(){
         setName("MyLayeredPane");
         addMouseWheelListener(this);
 
-        addNewLayer();
+        addNewLayer("De Output van deel 1...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        addNewLayer("De Output van deel 2...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        addNewLayer("De Output van deel 3...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        addNewLayer("De Output van deel 4...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        addNewLayer("De Output van deel 5...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
-    public void addNewLayer(){
+    public void addNewLayer(String s){
         MyJTextPane = new JTextPane();
-        MyJTextPane.setBackground(Color.WHITE);
-        MyJTextPane.setSize(900, 200);
-        MyJTextPane.setText("Blah");
-        
-        MyJScrollPane = new JScrollPane();
-        MyJScrollPane.setBounds(0, 35, 899, 200);
-        MyJScrollPane.setSize(899, 200);
-        MyJScrollPane.add(MyJTextPane);
+        MyJTextPane.setText(s);
+
+        MyJScrollPane = new JScrollPane(MyJTextPane);
+        MyJScrollPane.setBounds(3, 35, 890, 300);
         
         add(MyJScrollPane, JLayeredPane.DEFAULT_LAYER);
 
     }
 
     public void mouseWheelMoved(MouseWheelEvent mwe){
+        MyJRootPane rootpane = (MyJRootPane) getParent();
+
         int rotation = mwe.getWheelRotation();
         int top = getComponentCountInLayer(JLayeredPane.DEFAULT_LAYER);
         Component[] component = getComponentsInLayer(JLayeredPane.DEFAULT_LAYER);
         if (rotation > 0)
         {
             moveToBack(component[0]);
+            layer = (layer ==top)? 1 :++layer;
         }
         else
         {
+            layer = (layer ==1)? top :--layer;
             moveToFront(component[top-1]);
         }
+
+        rootpane.setGlassPane(new MyGlassPane(layer));
+        rootpane.createGlassPane();
+        rootpane.updateUI();
+        
+
     }
 }

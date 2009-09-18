@@ -3,35 +3,33 @@ import javax.swing.JRootPane;
 
 import java.awt.Component;
 import java.awt.Container;
-import javax.swing.JLayeredPane;
-import javax.swing.JRootPane;
+import javax.swing.*;
 
 public class MyJRootPane extends JRootPane {
   private static final long serialVersionUID = 1L;
 
-  private Control control;
+  private MyJFrame frame;
 
-  public MyJRootPane(Control c)
+  public MyJRootPane(MyJFrame f)
   {
-    control = c;
+    frame = f;
     setName("MyJRootPane");
   }
 
   @Override
   protected Component createGlassPane()
   {
-    return new MyGlassPane(control);
+    return new MyGlassPane();
   }
 
   @Override
   protected JLayeredPane createLayeredPane()
   {
-    return new MyJLayeredPane(control);
+    return new MyJLayeredPane();
   }
-
   @Override
   protected Container createContentPane()
   {
-    return new MyContentPane(control);
+    return new MyContentPane(frame);
   }
 }
