@@ -1,22 +1,9 @@
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.*;
+import java.util.logging.*;
 import javax.imageio.ImageIO;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 class MyJPanel extends JPanel{
     private static final long serialVersionUID = 1L;
@@ -71,10 +58,13 @@ class MyJPanel extends JPanel{
             actionButton.setBackground(Color.GREEN);
             actionButton.setName("actionButton");
             this.add(actionButton);
+            actionButton.addActionListener(control);
+            actionButton.addItemListener(control);
+
+            
 
 
         } catch (UnknownHostException ex) {
-            Logger.getLogger(MyJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

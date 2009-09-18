@@ -1,10 +1,7 @@
 
 import javax.swing.JComponent;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import javax.swing.JComponent;
 
 public class MyGlassPane extends JComponent {
@@ -12,18 +9,19 @@ public class MyGlassPane extends JComponent {
     private Font font = new Font("monospaced", Font.PLAIN, 50);
 
     private Control control;
+    private int number = 1;
 
-    public int number = 1;
+    MyGlassPane(){
+        setName("MyGlassPane");
+    }
 
-    MyGlassPane(Control c)
-    {
-        control = c;
+    MyGlassPane(int n){
+        number = n;
         setName("MyGlassPane");
     }
 
     @Override
-    protected void paintComponent(Graphics g)
-    {
+    protected void paintComponent(Graphics g){
         Graphics2D LayerNumber = (Graphics2D)g;
         LayerNumber.setFont(font);
         LayerNumber.setColor(Color.BLUE);

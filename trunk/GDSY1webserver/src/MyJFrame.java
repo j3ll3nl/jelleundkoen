@@ -2,14 +2,12 @@
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
 
-
-
 public class MyJFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     
-    private Control control;
+    public Control control;
 
-    JRootPane MyRootPane;
+    private JRootPane MyRootPane;
 
     public MyJFrame(Control c){
         control = c;
@@ -20,14 +18,13 @@ public class MyJFrame extends JFrame {
         setBounds(10, 10, 900, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
         getGlassPane().setVisible(true);
     }
 
     @Override
     protected JRootPane createRootPane()
     {
-        return new MyJRootPane(control);
+        return new MyJRootPane(this);
     }
 
 }

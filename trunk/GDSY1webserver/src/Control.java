@@ -69,10 +69,12 @@ public class Control implements ActionListener,ItemListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        System.out.println("Action");
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void itemStateChanged(ItemEvent e) {
+        System.out.println("item");
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
