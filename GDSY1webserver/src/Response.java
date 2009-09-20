@@ -8,7 +8,7 @@ public class Response extends HashMap<String, String> {
     private String generalHeader;
     private String responseHeader;
     private String entityHeader;
-    private String entityBody;
+    private byte[] entityBody;
 
     public Response(){}
 
@@ -21,21 +21,22 @@ public class Response extends HashMap<String, String> {
 
         // Response opbouwen door informatie aan elkaar te plakken.
         // Status-Line*( General-Header| Response-Header| Entity-Header ) CRLF[ Entity-Body ]
-        fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader() + "\n\n" + this.getEntityBody();
+        fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader() + "\n\n";
                 //"( " + this.getGeneralHeader() + "| " + this.getResponseHeader() + "| " + this.getEntityHeader() +
                 //" \n\r" + this.getEntityBody() + "";
 
         System.out.println(fullResponse);
+        System.out.println(this.getEntityBody());
         return fullResponse.getBytes();
 
     }
 
     public void setStatusLine(String statusCode, String reasonPhrase) {
-        this.statusLine = "HTTP/1.0 " + statusCode + " " + reasonPhrase + " ";
+        this.statusLine = "HTTP/1.10 " + statusCode + " " + reasonPhrase + " ";
     }
 
     public void setStatusLine(String statusCode) {
-        this.statusLine = "HTTP/1.0 " + statusCode + " reason unknown ";
+        this.statusLine = "HTTP/1.1 " + statusCode + " reason unknown ";
     }
 
     public String getStatusLine() {
@@ -71,11 +72,11 @@ public class Response extends HashMap<String, String> {
         return this.entityHeader;
     }
     
-    public void setEntityBody(String s) {
+    public void setEntityBody(byte[] s) {
         this.entityBody = s;
     }
 
-    public String getEntityBody() {
+    public byte[] getEntityBody() {
         return this.entityBody;
     }
 }

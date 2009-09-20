@@ -1,5 +1,7 @@
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -50,27 +52,21 @@ public class Servlet {
         File file = new File(this.contentbase + filename);
 
         if (file.exists()) {
-            String body = "";
+            byte[] body;
         
             try {
-                FileReader fr = new FileReader(file);
-                BufferedReader reader = new BufferedReader(fr);
-                String line;
+                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
 
-                while ((line = reader.readLine()) != null) {
-                    body += line;
-                }
+                body = new byte[bis.available()];
+                bis.read(body);
 
-                reader.close();
-                fr.close();
-
-             this.response.setStatusLine("200", "OK");
+                this.response.setStatusLine("200", "OK");
+                this.response.setEntityBody(body);
 
             } catch (IOException e) {
                 e.printStackTrace();
                 this.response.setStatusLine("501", "IOException");
             }
-            this.response.setEntityBody(body);
         } else {
             // file bestaat niet
             this.response.setStatusLine("404", "File not found");
