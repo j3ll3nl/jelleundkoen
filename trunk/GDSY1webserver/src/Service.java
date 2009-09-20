@@ -21,6 +21,7 @@ public class Service implements Runnable{
         
         OutputStream os = serverSocket.getOutputStream();
         os.write(svlt.service(request).getBytes());
+        os.write(svlt.service(request).getEntityBody());
         os.close();
 
     }

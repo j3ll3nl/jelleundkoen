@@ -23,6 +23,8 @@ public class Control implements ActionListener,ItemListener {
     private JFrame Gui;
 
     public Control(){
+        Control.contentbase = "c:";
+
         Gui = new MyJFrame(this);
         Gui.setVisible(true);
         
@@ -44,7 +46,7 @@ public class Control implements ActionListener,ItemListener {
             port = 1337;
             System.out.println(host);
 
-            server = new Server(host, port, contentbase);
+            server = new Server(host, port, Control.contentbase);
             thread = new Thread(server);
             thread.start();
         }
