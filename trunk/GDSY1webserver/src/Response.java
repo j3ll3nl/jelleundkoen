@@ -20,11 +20,30 @@ public class Response extends HashMap<String, String> {
 
         String fullResponse = "";
 
-        fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader() + "\n" + this.contentType + "\nContent-Length:" + this.getEntityBody().length + "\n\n";
+        fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader() + "\n" + this.contentType + "\nContent-Length:" + this.getEntityBody().length;
+        fullResponse = (this.getEntityBody() != null) ? "\n\n" : "";
 
         System.out.println(fullResponse);
-        System.out.println(this.getEntityBody());
-        return fullResponse.getBytes();
+        System.out.println(new String(this.getEntityBody()));
+
+        byte[] head = fullResponse.getBytes();
+        byte[] body = getEntityBody();
+
+        byte[] content = new byte[head.length + body.length];
+
+        int c = 0;
+
+        for (byte h : head) {
+            content[c] = h;
+            c++;
+        }
+
+        for (byte b : body) {
+            content[c] = b;
+            c++;
+        }
+
+        return content;
 
     }
 
