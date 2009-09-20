@@ -8,6 +8,7 @@ public class Response extends HashMap<String, String> {
     private String generalHeader;
     private String responseHeader;
     private String entityHeader;
+    private String contentType;
     private byte[] entityBody;
 
     public Response(){}
@@ -19,11 +20,7 @@ public class Response extends HashMap<String, String> {
 
         String fullResponse = "";
 
-        // Response opbouwen door informatie aan elkaar te plakken.
-        // Status-Line*( General-Header| Response-Header| Entity-Header ) CRLF[ Entity-Body ]
-        fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader() + "\n\n";
-                //"( " + this.getGeneralHeader() + "| " + this.getResponseHeader() + "| " + this.getEntityHeader() +
-                //" \n\r" + this.getEntityBody() + "";
+        fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader() + "\n" + this.contentType + "\nContent-Length:" + this.getEntityBody().length + "\n\n";
 
         System.out.println(fullResponse);
         System.out.println(this.getEntityBody());
@@ -32,7 +29,7 @@ public class Response extends HashMap<String, String> {
     }
 
     public void setStatusLine(String statusCode, String reasonPhrase) {
-        this.statusLine = "HTTP/1.10 " + statusCode + " " + reasonPhrase + " ";
+        this.statusLine = "HTTP/1.1 " + statusCode + " " + reasonPhrase + " ";
     }
 
     public void setStatusLine(String statusCode) {
@@ -50,14 +47,14 @@ public class Response extends HashMap<String, String> {
         formatter = new SimpleDateFormat("EEE, d MMM yyyy H:mm:ss",Locale.UK);
 
         // add HTTPdate
-        this.generalHeader = "Date: " + formatter.format(d) + " GMT";// Tue, 15 Nov 1994 08:12:31 GMT;
+        this.generalHeader = "Date:" + formatter.format(d) + " GMT";// Tue, 15 Nov 1994 08:12:31 GMT;
     }
 
     public String getGeneralHeader() {
         return this.generalHeader;
     }
     public void setResponseHeader() {
-        this.responseHeader = "Server: 1337SERV/0.1";
+        this.responseHeader = "Server:1337SERV/0.1";
     }
 
     public String getResponseHeader() {
@@ -65,14 +62,15 @@ public class Response extends HashMap<String, String> {
     }
 
     public void setEntityHeader() {
-        this.entityHeader = "Allow: GET, HEAD";
+        this.entityHeader = "Allow:GET,HEAD";
     }
 
     public String getEntityHeader() {
         return this.entityHeader;
     }
     
-    public void setEntityBody(byte[] s) {
+    public void setEntityBody(byte[] s, String filetype) {
+        this.contentType = "Content-Type:" + filetype;
         this.entityBody = s;
     }
 
