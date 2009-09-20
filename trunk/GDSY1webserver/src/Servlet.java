@@ -1,8 +1,6 @@
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class Servlet {
@@ -48,22 +46,11 @@ public class Servlet {
     }
 
     public void GET() {
-        String filename = !(this.request.getRequestURI().equals("/")) ? ""+request.getRequestURI() : "index.html";
+        String filename = getFileName();
+
         File file = new File(this.contentbase + filename);
 
-        String filetype = filename.substring(filename.lastIndexOf("."));
-
-        if (filetype.equalsIgnoreCase(".html"))
-            filetype = "text/" + filetype.substring(1);
-        else if (filetype.equalsIgnoreCase(".htm"))
-            filetype = "text/" + filetype.substring(1);
-        else if (filetype.equalsIgnoreCase(".jpg"))
-            filetype = "image/" + filetype.substring(1);
-        else if (filetype.equalsIgnoreCase(".gif"))
-            filetype = "image/" + filetype.substring(1);
-        else if (filetype.equalsIgnoreCase(".png"))
-            filetype = "image/" + filetype.substring(1);
-        else filetype = "text/plain";
+        String filetype = getFileType(filename);
 
         if (file.exists()) {
             byte[] body;
@@ -88,7 +75,19 @@ public class Servlet {
     }
 
     public void HEAD() {
-        this.response.setStatusLine("501", "Not Implemented");
+        String filename = getFileName();
+        File file = new File(this.contentbase + filename);
+
+        String filetype = getFileType(filename);
+
+        if (file.exists()) {
+
+            this.response.setStatusLine("200", "OK");
+            this.response.setEntityBody(null, filetype);
+        } else {
+            // file bestaat niet
+            this.response.setStatusLine("404", "File not found");
+        }
     }
 
     public void OPTIONS() {
@@ -105,5 +104,36 @@ public class Servlet {
 
     public void TRACE() {
         this.response.setStatusLine("501", "Not Implemented");
+    }
+
+    public String getFileType(String filename) {
+        String filetype = filename.substring(filename.lastIndexOf("."));
+
+        if (filetype.equalsIgnoreCase(".html"))
+            filetype = "text/" + filetype.substring(1);
+        else if (filetype.equalsIgnoreCase(".htm"))
+            filetype = "text/" + filetype.substring(1);
+        else if (filetype.equalsIgnoreCase(".jpg"))
+            filetype = "image/" + filetype.substring(1);
+        else if (filetype.equalsIgnoreCase(".gif"))
+            filetype = "image/" + filetype.substring(1);
+        else if (filetype.equalsIgnoreCase(".png"))
+            filetype = "image/" + filetype.substring(1);
+        else filetype = "text/plain";
+
+        return filetype;
+    }
+
+    public String getFileName() {
+        String filename = this.request.getRequestURI();
+
+        if (filename.equals("/"))
+            return "index.html";
+
+        int i = filename.lastIndexOf("?");
+        if (i == -1)
+            return filename;
+
+        return filename.substring(0,i);
     }
 }
