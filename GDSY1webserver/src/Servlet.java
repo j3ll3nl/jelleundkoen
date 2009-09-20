@@ -51,6 +51,20 @@ public class Servlet {
         String filename = !(this.request.getRequestURI().equals("/")) ? ""+request.getRequestURI() : "index.html";
         File file = new File(this.contentbase + filename);
 
+        String filetype = filename.substring(filename.lastIndexOf("."));
+
+        if (filetype.equalsIgnoreCase(".html"))
+            filetype = "text/" + filetype.substring(1);
+        else if (filetype.equalsIgnoreCase(".htm"))
+            filetype = "text/" + filetype.substring(1);
+        else if (filetype.equalsIgnoreCase(".jpg"))
+            filetype = "image/" + filetype.substring(1);
+        else if (filetype.equalsIgnoreCase(".gif"))
+            filetype = "image/" + filetype.substring(1);
+        else if (filetype.equalsIgnoreCase(".png"))
+            filetype = "image/" + filetype.substring(1);
+        else filetype = "text/plain";
+
         if (file.exists()) {
             byte[] body;
         
@@ -61,7 +75,7 @@ public class Servlet {
                 bis.read(body);
 
                 this.response.setStatusLine("200", "OK");
-                this.response.setEntityBody(body);
+                this.response.setEntityBody(body, filetype);
 
             } catch (IOException e) {
                 e.printStackTrace();
