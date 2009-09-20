@@ -20,8 +20,13 @@ public class Service implements Runnable{
         Servlet svlt = new Servlet(this.contentbase);
         
         OutputStream os = serverSocket.getOutputStream();
+
+        //System.out.println("Content" + content.toString());
+
         os.write(svlt.service(request).getBytes());
-        os.write(svlt.service(request).getEntityBody());
+
+        //os.write(head);
+        //os.write(body);
         os.close();
 
     }
