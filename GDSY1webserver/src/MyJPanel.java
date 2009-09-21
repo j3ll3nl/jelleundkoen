@@ -20,9 +20,7 @@ class MyJPanel extends JPanel{
             setLayout(new FlowLayout());
             setSize(900, 35);
 
-            MyJRootPane rootPane = (MyJRootPane) getRootPane();
-            rootPane.createLayeredPane();
-            JLayeredPane LayeredPane = rootPane.getLayeredPane();
+            JRootPane rootPane = getRootPane();
 
             hostLable = new JLabel();
             hostLable.setName("hostLable");
@@ -61,10 +59,7 @@ class MyJPanel extends JPanel{
             actionButton.setBackground(Color.GREEN);
             actionButton.setName("actionButton");
             this.add(actionButton);
-            actionButton.addActionListener((ActionListener) LayeredPane);
-
-            
-
+            //actionButton.addActionListener((ActionListener) rootPane.getLayeredPane());
 
         } catch (UnknownHostException ex) {
         }
