@@ -8,11 +8,8 @@ import javax.swing.*;
 public class MyJRootPane extends JRootPane {
   private static final long serialVersionUID = 1L;
 
-  private MyJFrame frame;
-
   public MyJRootPane(MyJFrame f)
   {
-    frame = f;
     setName("MyJRootPane");
   }
 
@@ -30,6 +27,6 @@ public class MyJRootPane extends JRootPane {
   @Override
   protected Container createContentPane()
   {
-    return new MyContentPane(frame);
+    return new MyContentPane();
   }
 }
