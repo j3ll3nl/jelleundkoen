@@ -20,13 +20,14 @@ public class MyJRootPane extends JRootPane {
   }
 
   @Override
-  protected JLayeredPane createLayeredPane()
-  {
-    return new MyJLayeredPane();
-  }
-  @Override
   protected Container createContentPane()
   {
     return new MyContentPane();
+  }
+
+  @Override
+  protected JLayeredPane createLayeredPane()
+  {
+    return new MyJLayeredPane();
   }
 }

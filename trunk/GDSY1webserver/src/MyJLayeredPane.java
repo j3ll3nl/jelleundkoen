@@ -9,13 +9,17 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener,ActionLi
     private JTextPane MyJTextPane;
     private int layer = 1;
 
-    private MyContentPane MyContentPane;
     private MyJRootPane rootpane;
-
+    private MyContentPane contentPane;
 
     public MyJLayeredPane(){
         setName("MyLayeredPane");
         addMouseWheelListener(this);
+
+        contentPane = new MyContentPane();
+
+        rootpane = (MyJRootPane) getRootPane();
+        rootpane.setContentPane(contentPane);
 
         addNewLayer("De Output van deel 1...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         addNewLayer("De Output van deel 2...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
