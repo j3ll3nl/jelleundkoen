@@ -2,14 +2,18 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class MyJLayeredPane extends JLayeredPane implements MouseWheelListener{
+class MyJLayeredPane extends JLayeredPane implements MouseWheelListener,ActionListener{
     private static final long serialVersionUID = 1L;
 
     private JScrollPane MyJScrollPane;
     private JTextPane MyJTextPane;
     private int layer = 1;
 
-    MyJLayeredPane(){
+    private MyContentPane MyContentPane;
+    private MyJRootPane rootpane;
+
+
+    public MyJLayeredPane(){
         setName("MyLayeredPane");
         addMouseWheelListener(this);
 
@@ -18,6 +22,7 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener{
         addNewLayer("De Output van deel 3...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         addNewLayer("De Output van deel 4...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         addNewLayer("De Output van deel 5...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
     }
 
     public void addNewLayer(String s){
@@ -32,7 +37,7 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener{
     }
 
     public void mouseWheelMoved(MouseWheelEvent mwe){
-        MyJRootPane rootpane = (MyJRootPane) getParent();
+        MyJRootPane MyRootpane = (MyJRootPane) getParent();
 
         int rotation = mwe.getWheelRotation();
         int top = getComponentCountInLayer(JLayeredPane.DEFAULT_LAYER);
@@ -48,10 +53,14 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener{
             moveToFront(component[top-1]);
         }
 
-        rootpane.setGlassPane(new MyGlassPane(layer));
-        rootpane.createGlassPane();
-        rootpane.updateUI();
+        MyRootpane.setGlassPane(new MyGlassPane(layer));
+        MyRootpane.createGlassPane();
+        MyRootpane.updateUI();
         
 
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        System.out.println(e);
     }
 }

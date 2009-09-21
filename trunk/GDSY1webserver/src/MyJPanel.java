@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.*;
 import java.util.logging.*;
@@ -13,13 +14,15 @@ class MyJPanel extends JPanel{
     private JTextField portField,contentbaseField;
     private JButton actionButton;
 
-    private Control control;
 
-    MyJPanel(Control c){
+    MyJPanel(){
         try {
-            control = c;
             setLayout(new FlowLayout());
             setSize(900, 35);
+
+            MyJRootPane rootPane = (MyJRootPane) getRootPane();
+            rootPane.createLayeredPane();
+            JLayeredPane LayeredPane = rootPane.getLayeredPane();
 
             hostLable = new JLabel();
             hostLable.setName("hostLable");
@@ -34,7 +37,7 @@ class MyJPanel extends JPanel{
             this.add(hostCombobox);
             hostCombobox.setModel(hostListModel);
             hostCombobox.setSelectedItem(adress);
-            hostCombobox.addItemListener(control);
+            //hostCombobox.addItemListener(control);
 
             portLable = new JLabel();
             portLable.setName("portLable");
@@ -58,8 +61,7 @@ class MyJPanel extends JPanel{
             actionButton.setBackground(Color.GREEN);
             actionButton.setName("actionButton");
             this.add(actionButton);
-            actionButton.addActionListener(control);
-            actionButton.addItemListener(control);
+            actionButton.addActionListener((ActionListener) LayeredPane);
 
             
 
