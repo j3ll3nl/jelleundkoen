@@ -57,15 +57,17 @@ class MyContentPane extends JPanel{
             portField = new JTextField("1337");
             portField.setName("portField");
             MyJPanel.add(portField);
+            portField.setColumns(4);
 
             contentbaseLable = new JLabel();
             contentbaseLable.setName("contentbaseLable");
             MyJPanel.add(contentbaseLable);
             contentbaseLable.setText("ContentBase: ");
 
-            contentbaseField = new JTextField("C:/eenbestand die ik nu nog niet kan benoemen"); // Nu kan je bij de contentbase Control.contentbase
+            contentbaseField = new JTextField("C:/"); // Nu kan je bij de contentbase Control.contentbase
             contentbaseField.setName("contentbaseField");
             MyJPanel.add(contentbaseField);
+            contentbaseField.setColumns(23);
 
             actionButton = new JButton("Start");
             actionButton.setBackground(Color.GREEN);

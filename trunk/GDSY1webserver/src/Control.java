@@ -1,11 +1,8 @@
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Color;
+import java.awt.event.*;
+import java.io.*;
+import java.util.logging.*;
 import java.net.*;
 import javax.swing.*;
 
@@ -23,16 +20,8 @@ public class Control implements ActionListener,ItemListener {
     private MyJFrame Gui;
 
     public Control(){
-        Control.contentbase = "c:";
         Gui = new MyJFrame(this);
         Gui.setVisible(true);
-        
-        try {
-            doStart();
-
-        } catch (Exception e) {
-            log(e.getMessage());
-        }
     }
 
     public void doStart() throws Exception{
@@ -41,11 +30,7 @@ public class Control implements ActionListener,ItemListener {
             InetAddress[] adreslijst = InetAddress.getAllByName(InetAddress.getLocalHost().getHostName());
 
             // Om te testen -----
-            host = adreslijst[0];
-            port = 1337;
-            System.out.println(host);
-
-            server = new Server(host, port, contentbase);
+            server = new Server((InetAddress) Gui.hostCombobox.getSelectedItem(), Integer.parseInt(Gui.portField.getText()), Gui.contentbaseField.getText());
             thread = new Thread(server);
             thread.start();
         }
@@ -70,20 +55,36 @@ public class Control implements ActionListener,ItemListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
 
-        if(e.getActionCommand().equals("Start")){
-            System.out.println("Start");
+        if(e.getSource() == Gui.actionButton){
+            if(Gui.actionButton.getText() == "Start")
+            {
+                Gui.actionButton.setText("Stop");
+                Gui.actionButton.setBackground(Color.RED);
+                try {
+                doStart();
+                } catch (Exception ex) {
+                log(ex.getMessage());
+                } 
+            }
+            else if(Gui.actionButton.getText() == "Stop"){
+                Gui.actionButton.setText("Start");
+                Gui.actionButton.setBackground(Color.GREEN);
+                try {
+                doStop();
+                } catch (Exception ex) {
+                log(ex.getMessage());
+                }
+            }
+
         }
+        
         if(e.getSource() == Gui.portField){
-            System.out.println("1337!!!");
+            System.out.println(e.getActionCommand());
         }
         
     }
 
-    public void itemStateChanged(ItemEvent e) {
-
-        System.out.println(e.getItem());
-        
+    public void itemStateChanged(ItemEvent e) {        
     }
 }
