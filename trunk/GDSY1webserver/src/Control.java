@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.net.*;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 
 
@@ -20,7 +20,7 @@ public class Control implements ActionListener,ItemListener {
     public static String contentbase;
     private String logs;
 
-    private JFrame Gui;
+    private MyJFrame Gui;
 
     public Control(){
         Control.contentbase = "c:";
@@ -70,12 +70,20 @@ public class Control implements ActionListener,ItemListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Action");
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println(e.getActionCommand());
+
+        if(e.getActionCommand().equals("Start")){
+            System.out.println("Start");
+        }
+        if(e.getSource() == Gui.portField){
+            System.out.println("1337!!!");
+        }
+        
     }
 
     public void itemStateChanged(ItemEvent e) {
-        System.out.println("item");
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        System.out.println(e.getItem());
+        
     }
 }

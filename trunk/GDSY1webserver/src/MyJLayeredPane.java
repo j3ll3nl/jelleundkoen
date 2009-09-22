@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 import javax.swing.*;
 
 class MyJLayeredPane extends JLayeredPane implements MouseWheelListener,ActionListener{
@@ -7,19 +8,14 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener,ActionLi
 
     private JScrollPane MyJScrollPane;
     private JTextPane MyJTextPane;
-    private int layer = 1;
-
-    private MyJRootPane rootpane;
-    private MyContentPane contentPane;
+    private HashMap<JScrollPane,JTextPane> layers;
+    private int layersize = 1;
 
     public MyJLayeredPane(){
         setName("MyLayeredPane");
         addMouseWheelListener(this);
 
-        contentPane = new MyContentPane();
-
-        rootpane = (MyJRootPane) getRootPane();
-        rootpane.setContentPane(contentPane);
+        layers = new HashMap<JScrollPane, JTextPane>();
 
         addNewLayer("De Output van deel 1...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         addNewLayer("De Output van deel 2...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -38,26 +34,28 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener,ActionLi
         
         add(MyJScrollPane, JLayeredPane.DEFAULT_LAYER);
 
+        layers.put(MyJScrollPane,MyJTextPane);
+
     }
 
     public void mouseWheelMoved(MouseWheelEvent mwe){
         MyJRootPane MyRootpane = (MyJRootPane) getParent();
-
+        
         int rotation = mwe.getWheelRotation();
         int top = getComponentCountInLayer(JLayeredPane.DEFAULT_LAYER);
         Component[] component = getComponentsInLayer(JLayeredPane.DEFAULT_LAYER);
         if (rotation > 0)
         {
             moveToBack(component[0]);
-            layer = (layer ==top)? 1 :++layer;
+            layersize = (layersize ==top)? 1 :++layersize;
         }
         else
         {
-            layer = (layer ==1)? top :--layer;
+            layersize = (layersize ==1)? top :--layersize;
             moveToFront(component[top-1]);
         }
 
-        MyRootpane.setGlassPane(new MyGlassPane(layer));
+        MyRootpane.setGlassPane(new MyGlassPane(layersize));
         MyRootpane.createGlassPane();
         MyRootpane.updateUI();
         
@@ -65,6 +63,6 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener,ActionLi
     }
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e);
+        System.out.println(e.toString());
     }
 }
