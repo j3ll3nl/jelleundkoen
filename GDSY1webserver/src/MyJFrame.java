@@ -8,6 +8,7 @@ public class MyJFrame extends JFrame {
 
     private JRootPane MyRootPane;
     private MyContentPane contentPane;
+    public MyJLayeredPane layeredPane;
 
     public JComboBox hostCombobox;
     public JTextField portField,contentbaseField;
@@ -25,13 +26,19 @@ public class MyJFrame extends JFrame {
         getGlassPane().setVisible(true);
 
         contentPane = (MyContentPane) getContentPane();
+        layeredPane = (MyJLayeredPane) getLayeredPane();
 
+        hostCombobox = contentPane.hostCombobox;
         portField = contentPane.portField;
+        contentbaseField = contentPane.contentbaseField;
+        actionButton = contentPane.actionButton;
 
-        contentPane.hostCombobox.addItemListener(control);
+        hostCombobox.addItemListener(control);
         portField.addActionListener(control);
-        contentPane.contentbaseField.addActionListener(control);
-        contentPane.actionButton.addActionListener(control);
+        contentbaseField.addActionListener(control);
+        actionButton.addActionListener(control);
+
+        actionButton.addItemListener(control);
 
     }
 
