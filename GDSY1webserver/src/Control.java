@@ -15,7 +15,8 @@ public class Control implements ActionListener,ItemListener {
     private InetAddress host;
     private int port;
     public static String contentbase;
-    private String logs;
+
+    public String logs;
 
     private MyJFrame Gui;
 
@@ -35,7 +36,7 @@ public class Control implements ActionListener,ItemListener {
             thread.start();
         }
         catch(Exception e){
-            log(e.getMessage());
+            log(0,e.getMessage());
         }
 
     }
@@ -46,12 +47,12 @@ public class Control implements ActionListener,ItemListener {
             server.close();
 
         } catch (IOException e) {
-            log(e.getMessage());
+            log(0,e.getMessage());
         }
     }
 
-    public void log(String m){
-        logs += "\n"+m;
+    public void log(int i,String message){
+        
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -64,7 +65,7 @@ public class Control implements ActionListener,ItemListener {
                 try {
                 doStart();
                 } catch (Exception ex) {
-                log(ex.getMessage());
+                log(0,ex.getMessage());
                 } 
             }
             else if(Gui.actionButton.getText().equals("Stop")){
@@ -73,7 +74,7 @@ public class Control implements ActionListener,ItemListener {
                 try {
                 doStop();
                 } catch (Exception ex) {
-                log(ex.getMessage());
+                log(0,ex.getMessage());
                 }
             }
 
