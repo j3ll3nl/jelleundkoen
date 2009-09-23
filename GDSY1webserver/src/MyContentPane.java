@@ -1,23 +1,17 @@
 
 import java.awt.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
-class MyContentPane extends JPanel{
-    private static final long serialVersionUID = 1L;
+class MyContentPane extends JPanel {
 
-    private MyJRootPane rootPane;
+    private static final long serialVersionUID = 1L;
     public MyJLayeredPane layeredPane;
     public MyJPanel MyJPanel;
 
-    MyContentPane()
-    {
+    MyContentPane() {
         System.out.println("MyContentPane()");
         setName("MyContentPane");
-        setLayout(new BorderLayout(1,1));
+        setLayout(new BorderLayout(1, 1));
         setPreferredSize(new Dimension(900, 500));
         setBackground(Color.BLACK);
         setOpaque(true);
@@ -25,7 +19,7 @@ class MyContentPane extends JPanel{
         MyJPanel = new MyJPanel();
 
         add(MyJPanel, BorderLayout.NORTH);
-        add(MyJPanel.ErrorLable,BorderLayout.SOUTH);
+        add(MyJPanel.ErrorLable, BorderLayout.SOUTH);
 
     }
 }

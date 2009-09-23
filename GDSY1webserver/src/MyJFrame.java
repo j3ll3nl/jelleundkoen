@@ -1,23 +1,20 @@
 
 import javax.swing.*;
 
-public class MyJFrame extends JFrame {
-    private static final long serialVersionUID = 1L;
-    
-    public Control control;
+class MyJFrame extends JFrame {
 
-    private JRootPane MyRootPane;
+    private static final long serialVersionUID = 1L;
+    public Control control;
     private MyContentPane contentPane;
     public MyJLayeredPane layeredPane;
-
     public JComboBox hostCombobox;
-    public JTextField portField,contentbaseField;
-    public JLabel ErrorLable;
+    public JTextField portField,  contentbaseField;
+    public JLabel errorLable;
     public JButton actionButton;
 
-    public MyJFrame(Control c){
+    public MyJFrame(Control c) {
         control = c;
-        
+
         setName("Webserver");
         setTitle("Webserver");
         setResizable(false);
@@ -34,22 +31,17 @@ public class MyJFrame extends JFrame {
         contentbaseField = contentPane.MyJPanel.contentbaseField;
         actionButton = contentPane.MyJPanel.actionButton;
 
-        ErrorLable = contentPane.MyJPanel.ErrorLable;
+        errorLable = contentPane.MyJPanel.ErrorLable;
 
         hostCombobox.addItemListener(control);
         portField.addActionListener(control);
         contentbaseField.addActionListener(control);
         actionButton.addActionListener(control);
 
-        actionButton.addItemListener(control);
-
-
     }
 
     @Override
-    protected JRootPane createRootPane()
-    {
+    protected JRootPane createRootPane() {
         return new MyJRootPane(this);
     }
-
 }
