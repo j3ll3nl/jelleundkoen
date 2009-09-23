@@ -8,7 +8,8 @@ import javax.swing.*;
 
 public class MyJPanel extends JPanel {
 
-    private JLabel hostLable,portLable,contentbaseLable,ErrorLable;
+    private JLabel hostLable,portLable,contentbaseLable;
+    public JLabel ErrorLable;
     public JComboBox hostCombobox;
     public JTextField portField,contentbaseField;
     public JButton actionButton;
@@ -59,5 +60,9 @@ public class MyJPanel extends JPanel {
             actionButton.setBackground(Color.GREEN);
             actionButton.setName("actionButton");
             this.add(actionButton);
+
+            ErrorLable = new JLabel("Webserver (Geen meldingen)");
+            ErrorLable.setForeground(Color.WHITE);
+            ErrorLable.setName("errorlable");
     }
 }
