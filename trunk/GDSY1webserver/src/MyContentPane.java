@@ -17,7 +17,7 @@ class MyContentPane extends JPanel{
     {
         System.out.println("MyContentPane()");
         setName("MyContentPane");
-        setLayout(new BorderLayout(1,3));
+        setLayout(new BorderLayout(1,1));
         setPreferredSize(new Dimension(900, 500));
         setBackground(Color.BLACK);
         setOpaque(true);
