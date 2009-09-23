@@ -57,7 +57,7 @@ public class Control implements ActionListener,ItemListener {
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource() == Gui.actionButton){
-            if(Gui.actionButton.getText() == "Start")
+            if(Gui.actionButton.getText().equals("Start"))
             {
                 Gui.actionButton.setText("Stop");
                 Gui.actionButton.setBackground(Color.RED);
@@ -67,7 +67,7 @@ public class Control implements ActionListener,ItemListener {
                 log(ex.getMessage());
                 } 
             }
-            else if(Gui.actionButton.getText() == "Stop"){
+            else if(Gui.actionButton.getText().equals("Stop")){
                 Gui.actionButton.setText("Start");
                 Gui.actionButton.setBackground(Color.GREEN);
                 try {
