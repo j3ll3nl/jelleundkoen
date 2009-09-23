@@ -30,7 +30,7 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener,ActionLi
         MyJTextPane.setText(s);
 
         MyJScrollPane = new JScrollPane(MyJTextPane);
-        MyJScrollPane.setBounds(3, 35, 890, 300);
+        MyJScrollPane.setBounds(3, 37, 890, 300);
         
         add(MyJScrollPane, JLayeredPane.DEFAULT_LAYER);
 
