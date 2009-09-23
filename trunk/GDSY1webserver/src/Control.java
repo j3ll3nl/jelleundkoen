@@ -2,114 +2,103 @@
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.*;
-import java.util.logging.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.*;
+import java.util.*;
 
+public class Control implements ActionListener, ItemListener {
 
-
-public class Control implements ActionListener,ItemListener {
     private Thread thread = null;
-	private Server server = null;
-
-    private InetAddress host;
-    private int port;
+    private Server server = null;
     public static String contentbase;
     public String logs;
-
     private ArrayList<MyJScrollPane> ScrollPanes;
-
     private MyJFrame Gui;
 
-    public Control(){
+    public Control() {
 
         ScrollPanes = new ArrayList<MyJScrollPane>();
-
         Gui = new MyJFrame(this);
         Gui.setVisible(true);
 
-        log(0,"test bericht");
-        log(1,"test");
-        log(2,"blaah");
-        log(2,"+ meeer!!!");
-    }
-
-    public void doStart() throws Exception{
-        try{
-
-            InetAddress[] adreslijst = InetAddress.getAllByName(InetAddress.getLocalHost().getHostName());
-
-            // Om te testen -----
-            server = new Server((InetAddress) Gui.hostCombobox.getSelectedItem(), Integer.parseInt(Gui.portField.getText()), Gui.contentbaseField.getText());
-            thread = new Thread(server);
-            thread.start();
-        }
-        catch(Exception e){
-            log(0,e.getMessage());
-        }
+        log(1, "");
 
     }
 
-    public void doStop(){
+    public void doStart() throws Exception {
+        log(0, "De webserver is gestart.");
+        log(1, "doStart()");
         try {
-            
+            server = new Server((InetAddress) Gui.hostCombobox.getSelectedItem(), Integer.parseInt(Gui.portField.getText()), Gui.contentbaseField.getText());
+            log(1, server.toString());
+            thread = new Thread(server);
+            log(1, thread.toString());
+            thread.start();
+            log(1, "De Thread is gestart");
+        } catch (Exception e) {
+            log(0, e.getMessage());
+        }
+
+    }
+
+    public void doStop() {
+        log(0, "De webserver is gestopt.");
+        try {
+
             server.close();
 
         } catch (IOException e) {
-            log(0,e.getMessage());
+            log(0, e.getMessage());
         }
     }
 
-    public void log(int i,String message){
-        if(i > 0){
-            try{
-                MyJScrollPane scrollPane = ScrollPanes.get(i-1);
+    public void log(int i, String message) {
+        if (i > 0) {
+            try {
+                MyJScrollPane scrollPane = ScrollPanes.get(i - 1);
                 scrollPane.MyJTextPane.append(message);
-            }catch(IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 MyJScrollPane scrollPane = new MyJScrollPane(i);
                 scrollPane.MyJTextPane.setText(message);
                 ScrollPanes.add(scrollPane);
                 Gui.layeredPane.addInLayer(scrollPane);
-            }   
-        }
-        else{
-        Gui.ErrorLable.setText(message);
+            }
+        } else {
+            Gui.errorLable.setText(message);
         }
     }
 
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == Gui.actionButton){
-            if(Gui.actionButton.getText().equals("Start"))
-            {
+        if (e.getSource() == Gui.actionButton) {
+            if (Gui.actionButton.getText().equals("Start")) {
                 Gui.actionButton.setText("Stop");
                 Gui.actionButton.setBackground(Color.RED);
                 try {
-                doStart();
+                    doStart();
                 } catch (Exception ex) {
-                log(0,ex.getMessage());
-                } 
-            }
-            else if(Gui.actionButton.getText().equals("Stop")){
+                    log(0, ex.getMessage());
+                }
+            } else if (Gui.actionButton.getText().equals("Stop")) {
                 Gui.actionButton.setText("Start");
                 Gui.actionButton.setBackground(Color.GREEN);
                 try {
-                doStop();
+                    doStop();
                 } catch (Exception ex) {
-                log(0,ex.getMessage());
+                    log(0, ex.getMessage());
                 }
             }
 
         }
-        
-        if(e.getSource() == Gui.portField){
+
+        if (e.getSource() == Gui.portField) {
             System.out.println(e.getActionCommand());
         }
-        
+
     }
 
-    public void itemStateChanged(ItemEvent e) {        
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getSource() == Gui.hostCombobox) {
+            log(0, "Host is gewijzigd in '" + e.getItem() + "'");
+        }
     }
 }
