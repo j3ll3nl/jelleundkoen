@@ -8,34 +8,15 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener,ActionLi
 
     private JScrollPane MyJScrollPane;
     private JTextPane MyJTextPane;
-    private HashMap<JScrollPane,JTextPane> layers;
     private int layersize = 1;
 
     public MyJLayeredPane(){
         setName("MyLayeredPane");
         addMouseWheelListener(this);
-
-        layers = new HashMap<JScrollPane, JTextPane>();
-
-        addNewLayer("De Output van deel 1...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        addNewLayer("De Output van deel 2...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        addNewLayer("De Output van deel 3...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        addNewLayer("De Output van deel 4...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        addNewLayer("De Output van deel 5...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
     }
 
-    public void addNewLayer(String s){
-        MyJTextPane = new JTextPane();
-        MyJTextPane.setText(s);
-
-        MyJScrollPane = new JScrollPane(MyJTextPane);
-        MyJScrollPane.setBounds(3, 37, 890, 300);
-        
-        add(MyJScrollPane, JLayeredPane.DEFAULT_LAYER);
-
-        layers.put(MyJScrollPane,MyJTextPane);
-
+    public void addInLayer(MyJScrollPane p){
+        add(p, JLayeredPane.DEFAULT_LAYER);
     }
 
     public void mouseWheelMoved(MouseWheelEvent mwe){
