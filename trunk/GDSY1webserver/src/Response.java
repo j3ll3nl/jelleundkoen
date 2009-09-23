@@ -21,7 +21,7 @@ public class Response extends HashMap<String, String> {
         String fullResponse = "";
 
         fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader() + "\n" + this.contentType + "\nContent-Length:" + this.getEntityBody().length;
-        fullResponse = (this.getEntityBody() != null) ? "\n\n" : "";
+        fullResponse += (this.getEntityBody() != null) ? "\n\n" : "";
 
         System.out.println(fullResponse);
         System.out.println(new String(this.getEntityBody()));
