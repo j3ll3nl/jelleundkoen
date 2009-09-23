@@ -25,6 +25,7 @@ class MyContentPane extends JPanel{
         MyJPanel = new MyJPanel();
 
         add(MyJPanel, BorderLayout.NORTH);
+        add(MyJPanel.ErrorLable,BorderLayout.SOUTH);
 
     }
 }

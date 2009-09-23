@@ -12,6 +12,7 @@ public class MyJFrame extends JFrame {
 
     public JComboBox hostCombobox;
     public JTextField portField,contentbaseField;
+    public JLabel ErrorLable;
     public JButton actionButton;
 
     public MyJFrame(Control c){
@@ -20,7 +21,7 @@ public class MyJFrame extends JFrame {
         setName("Webserver");
         setTitle("Webserver");
         setResizable(false);
-        setBounds(10, 10, 900, 400);
+        setBounds(10, 10, 900, 380);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         getGlassPane().setVisible(true);
@@ -33,12 +34,15 @@ public class MyJFrame extends JFrame {
         contentbaseField = contentPane.MyJPanel.contentbaseField;
         actionButton = contentPane.MyJPanel.actionButton;
 
+        ErrorLable = contentPane.MyJPanel.ErrorLable;
+
         hostCombobox.addItemListener(control);
         portField.addActionListener(control);
         contentbaseField.addActionListener(control);
         actionButton.addActionListener(control);
 
         actionButton.addItemListener(control);
+
 
     }
 
