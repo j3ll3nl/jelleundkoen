@@ -28,10 +28,10 @@ public class MyJFrame extends JFrame {
         contentPane = (MyContentPane) getContentPane();
         layeredPane = (MyJLayeredPane) getLayeredPane();
 
-        hostCombobox = contentPane.hostCombobox;
-        portField = contentPane.portField;
-        contentbaseField = contentPane.contentbaseField;
-        actionButton = contentPane.actionButton;
+        hostCombobox = contentPane.MyJPanel.hostCombobox;
+        portField = contentPane.MyJPanel.portField;
+        contentbaseField = contentPane.MyJPanel.contentbaseField;
+        actionButton = contentPane.MyJPanel.actionButton;
 
         hostCombobox.addItemListener(control);
         portField.addActionListener(control);
