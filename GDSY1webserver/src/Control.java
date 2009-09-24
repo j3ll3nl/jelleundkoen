@@ -13,6 +13,7 @@ public class Control implements ActionListener, ItemListener {
     public String logs;
     private ArrayList<MyJScrollPane> ScrollPanes;
     private MyJFrame Gui;
+    
 
     public Control() {
 
