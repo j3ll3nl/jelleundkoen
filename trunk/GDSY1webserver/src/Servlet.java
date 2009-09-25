@@ -4,17 +4,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Servlet {
-    private Control control;
+    public Control control;
     public Response response;
     public String contentbase;
     public Request request;
 
 
     public Servlet(Control contr,String contentbase){
+        if (Control.debug) System.out.println("Servlet 1"); // Word alleen getoond als de debug var in Control op true staat
         this.control = contr;
         this.contentbase = contentbase;
 
-        this.response = new Response(control);
+        this.response = new Response(this.control);
     }
 
     public Response service(Request r){
