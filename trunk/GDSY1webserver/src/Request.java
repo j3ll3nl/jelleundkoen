@@ -45,4 +45,9 @@ public class Request extends HashMap<String, String> {
 	{
 		return version;
 	}
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Request gefinalized.");
+    }
 }

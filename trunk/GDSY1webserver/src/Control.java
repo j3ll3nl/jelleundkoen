@@ -42,11 +42,12 @@ public class Control implements ActionListener, ItemListener {
     }
 
     public void doStop() {
-        log(0, "De webserver is gestopt.");
+        log(0, "De webserver probeert te stoppen.");
         try {
-
+            while (server.threadsClosed()) {server.closeThreads();}
             server.close();
-
+            System.gc();
+            log(0, "De webserver is gestopt.");
         } catch (IOException e) {
             log(0, e.getMessage());
         }

@@ -8,6 +8,7 @@ public class Servlet {
     public String contentbase;
     public Request request;
 
+
     public Servlet(String contentbase){
         this.contentbase = contentbase;
 
@@ -135,5 +136,10 @@ public class Servlet {
             return filename;
 
         return filename.substring(0,i);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Servlet gefinalized.");
     }
 }
