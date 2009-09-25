@@ -6,10 +6,12 @@ import java.util.HashMap;
 public class Server extends ServerSocket implements Runnable {
     private String contentbase;
     private HashMap<Service,Thread> services;
+    private Control control;
 
-    public Server(InetAddress h, int p, String c) throws IOException{
+    public Server(Control contr,InetAddress h, int p, String c) throws IOException{
         super(p,50, h);
         this.contentbase = c;
+        this.control = contr;
     }
 
     public boolean isAlive(){
@@ -20,6 +22,7 @@ public class Server extends ServerSocket implements Runnable {
     }
 
     public void removeServive(){
+        control.log(1,"removeService()");
         removeServive();
     }
 
@@ -31,16 +34,16 @@ public class Server extends ServerSocket implements Runnable {
 			{
 				System.out.println(this);
 				Socket serverSocket = super.accept();
-				new Thread(new Service(this,serverSocket,contentbase)).start();
+				new Thread(new Service(control,this,serverSocket,contentbase)).start();
 			}
 		}
 		catch(SocketException e)
 		{
-			System.out.println("Een fout in de socket:" + e.getMessage());
+			control.log(1,"Een fout in de socket:" + e.getMessage());
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage());
+			control.log(1,e.getMessage());
 		}
 	}
 
@@ -63,6 +66,7 @@ public class Server extends ServerSocket implements Runnable {
     }
 
     public void closeThreads() {
+      control.log(1,"Thread wordt gesloten");
       for (Service s: this.services.keySet()) {
             Thread t = this.services.get(s);
 
@@ -74,6 +78,6 @@ public class Server extends ServerSocket implements Runnable {
 
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("Server gefinalized.");
+        control.log(1,"Server gefinalized.");
     }
 }

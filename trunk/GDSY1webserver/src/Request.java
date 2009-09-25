@@ -5,14 +5,15 @@ import java.util.*;
 
 
 public class Request extends HashMap<String, String> {
-
+    private Control control;
 	private String method=null;
 	private String uri=null;
 	private String version=null;
     private SocketInputStream socketInputStream;
 
-	public Request(SocketInputStream sis) throws IOException
+	public Request(Control contr,SocketInputStream sis) throws IOException
 	{
+        this.control = contr;
         socketInputStream = new SocketInputStream(sis);
 
 		String requestline = socketInputStream.readLine();

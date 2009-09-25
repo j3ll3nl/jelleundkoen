@@ -29,7 +29,7 @@ public class Control implements ActionListener, ItemListener {
         log(0, "De webserver is gestart.");
         log(1, "doStart()");
         try {
-            server = new Server((InetAddress) Gui.hostCombobox.getSelectedItem(), Integer.parseInt(Gui.portField.getText()), Gui.contentbaseField.getText());
+            server = new Server(this,(InetAddress) Gui.hostCombobox.getSelectedItem(), Integer.parseInt(Gui.portField.getText()), Gui.contentbaseField.getText());
             log(1, server.toString());
             thread = new Thread(server);
             log(1, thread.toString());
@@ -42,14 +42,14 @@ public class Control implements ActionListener, ItemListener {
     }
 
     public void doStop() {
-        log(0, "De webserver probeert te stoppen.");
+        log(1, "De webserver probeert te stoppen.");
         try {
             while (server.threadsClosed()) {server.closeThreads();}
             server.close();
             System.gc();
-            log(0, "De webserver is gestopt.");
-        } catch (IOException e) {
-            log(0, e.getMessage());
+            log(1, "De webserver is gestopt.");
+        } catch (Exception e) {
+            log(1, e.getMessage());
         }
     }
 

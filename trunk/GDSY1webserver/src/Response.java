@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Response extends HashMap<String, String> {
-
+    private Control control;
     private String statusLine;
     private String generalHeader;
     private String responseHeader;
@@ -11,8 +11,10 @@ public class Response extends HashMap<String, String> {
     private String contentType;
     private byte[] entityBody;
 
-    public Response(){}
-
+    public Response(Control contr){
+        this.control = contr;
+    }
+    
     public byte[] getBytes(){
         this.setGeneralHeader();
         this.setResponseHeader();
