@@ -4,15 +4,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Servlet {
+    private Control control;
     public Response response;
     public String contentbase;
     public Request request;
 
 
-    public Servlet(String contentbase){
+    public Servlet(Control contr,String contentbase){
+        this.control = contr;
         this.contentbase = contentbase;
 
-        this.response = new Response();
+        this.response = new Response(control);
     }
 
     public Response service(Request r){
@@ -140,6 +142,6 @@ public class Servlet {
 
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("Servlet gefinalized.");
+        control.log(1,"Servlet gefinalized.");
     }
 }
