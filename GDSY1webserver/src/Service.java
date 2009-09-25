@@ -8,10 +8,15 @@ public class Service implements Runnable{
 
     private Socket serverSocket;
     private String contentbase;
+    private Server server;
 
-    public Service(Socket sk, String contentbase) throws Exception {
+    public Service(Server s,Socket sk, String contentbase) throws Exception {
         serverSocket = sk;
         this.contentbase = contentbase;
+        this.server = s;
+
+        // Zorgt dat de Server thread hem kent.
+        this.server.addservice(this,Thread.currentThread());
 
         SocketInputStream input = new  SocketInputStream(serverSocket.getInputStream());
 		Request request = new Request(input);
@@ -29,10 +34,14 @@ public class Service implements Runnable{
         //os.write(body);
         os.close();
 
+        this.closeSocket();
     }
 
     public void closeSocket(){
-        
+        System.out.println("Socket gesloten");
+        this.server.removeService(this);
+        System.out.println("Service afgesloten");
+
     }
 
     public void run() {

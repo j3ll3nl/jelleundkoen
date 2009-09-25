@@ -20,31 +20,37 @@ public class Response extends HashMap<String, String> {
 
         String fullResponse = "";
 
-        fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader() + "\n" + this.contentType + "\nContent-Length:" + this.getEntityBody().length;
+        fullResponse = this.getStatusLine() + "\n" +  this.getGeneralHeader() + "\n" + this.getResponseHeader() + "\n" + this.getEntityHeader();
+        fullResponse += (this.getEntityBody() != null) ? "\n" + this.contentType : "";
+        fullResponse += (this.getEntityBody() != null) ? "\nContent-Length:" + this.getEntityBody().length : "";
         fullResponse += (this.getEntityBody() != null) ? "\n\n" : "";
 
         System.out.println(fullResponse);
-        System.out.println(new String(this.getEntityBody()));
 
-        byte[] head = fullResponse.getBytes();
-        byte[] body = getEntityBody();
+        if (this.getEntityBody() != null) {
 
-        byte[] content = new byte[head.length + body.length];
+            System.out.println(new String(this.getEntityBody()));
 
-        int c = 0;
+            byte[] head = fullResponse.getBytes();
+            byte[] body = getEntityBody();
 
-        for (byte h : head) {
-            content[c] = h;
-            c++;
+            byte[] content = new byte[head.length + body.length];
+
+            int c = 0;
+
+            for (byte h : head) {
+                content[c] = h;
+                c++;
+            }
+
+            for (byte b : body) {
+                content[c] = b;
+                c++;
+            }
+            return content;
+        } else {
+            return fullResponse.getBytes();
         }
-
-        for (byte b : body) {
-            content[c] = b;
-            c++;
-        }
-
-        return content;
-
     }
 
     public void setStatusLine(String statusCode, String reasonPhrase) {
@@ -95,5 +101,10 @@ public class Response extends HashMap<String, String> {
 
     public byte[] getEntityBody() {
         return this.entityBody;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Response gefinalized.");
     }
 }
