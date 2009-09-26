@@ -9,7 +9,7 @@ class MyContentPane extends JPanel {
     public MyJPanel MyJPanel;
 
     MyContentPane() {
-        System.out.println("MyContentPane()");
+        if (Main.debug) if (Main.debug) System.out.println("MyContentPane()");
         setName("MyContentPane");
         setLayout(new BorderLayout(1, 1));
         setPreferredSize(new Dimension(900, 500));

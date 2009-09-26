@@ -38,7 +38,7 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener, ActionL
         else if (this.currentLocation > size-1)
             this.currentLocation = 0;
 
-        //System.out.println("Rotation: " + rotation + "\n Currentlocation: " + currentLocation + "\nTop: " + top + "\n");
+        //if (Main.debug) System.out.println("Rotation: " + rotation + "\n Currentlocation: " + currentLocation + "\nTop: " + top + "\n");
 
         Component c = this.scrollPanes.get(this.currentLocation);
         moveToFront(c);
@@ -50,6 +50,6 @@ class MyJLayeredPane extends JLayeredPane implements MouseWheelListener, ActionL
     }
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.toString());
+        if (Main.debug) System.out.println(e.toString());
     }
 }

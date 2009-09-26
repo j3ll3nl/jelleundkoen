@@ -47,7 +47,7 @@ public class Control implements ActionListener, ItemListener {
         log(0, "De webserver probeert te stoppen.");
         log(1, "De webserver probeert te stoppen.");
 
-        if (Main.debug) System.out.println("Debug: Control doStop(): Webserver probeert te stoppen."); //debug regel die alleen weergegeven word als Main.debug op true staat
+        if (Main.debug) if (Main.debug) System.out.println("Debug: Control doStop(): Webserver probeert te stoppen."); //debug regel die alleen weergegeven word als Main.debug op true staat
 
         try {
             while (!server.threadsClosed()) {server.closeThreads();}
@@ -113,7 +113,7 @@ public class Control implements ActionListener, ItemListener {
         }
 
         if (e.getSource() == Gui.portField) {
-            System.out.println(e.getActionCommand());
+            if (Main.debug) System.out.println(e.getActionCommand());
         }
 
     }

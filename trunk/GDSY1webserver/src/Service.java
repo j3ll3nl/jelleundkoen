@@ -12,7 +12,7 @@ public class Service implements Runnable{
     private int serviceLogNr;
 
     public Service(Control contr,Server s,Socket sk, String contentbase) throws Exception {
-        if (Main.debug) System.out.println("Debug: Service Constructor"); //debug regel die alleen weergegeven word als Main.debug op true staat
+        if (Main.debug) if (Main.debug) System.out.println("Debug: Service Constructor"); //debug regel die alleen weergegeven word als Main.debug op true staat
         
         serverSocket = sk;
         this.contentbase = contentbase;
@@ -32,7 +32,7 @@ public class Service implements Runnable{
         
         OutputStream os = serverSocket.getOutputStream();
 
-        //System.out.println("Content" + content.toString());
+        //if (Main.debug) System.out.println("Content" + content.toString());
 
         os.write(svlt.service(request).getBytes());
 
