@@ -52,7 +52,7 @@ public class Response extends HashMap<String, String> {
 
             return content;
         } else {
-            if (Main.debug) System.out.println(fullResponse);
+            if (Main.debug)  System.out.println(fullResponse);
             control.log(this.serviceLogNr,"\n" + fullResponse + "\n");
 
             return fullResponse.getBytes();
