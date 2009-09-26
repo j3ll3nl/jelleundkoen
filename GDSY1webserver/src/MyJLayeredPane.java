@@ -1,40 +1,51 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 class MyJLayeredPane extends JLayeredPane implements MouseWheelListener, ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private int layersize = 1;
+    private int currentLocation = 0;
+    private ArrayList<MyJScrollPane> scrollPanes;
 
     public MyJLayeredPane() {
         setName("MyLayeredPane");
         addMouseWheelListener(this);
+
+        this.scrollPanes = new ArrayList<MyJScrollPane>();
     }
 
     public void addInLayer(MyJScrollPane p) {
         add(p, JLayeredPane.DEFAULT_LAYER);
+        this.scrollPanes.add(p);
     }
 
     public void mouseWheelMoved(MouseWheelEvent mwe) {
+        int size = this.scrollPanes.size();
+
+        if (size == 1) return; // verlaat methode als er nog geen panes zijn om te scrollen
+
         MyJRootPane MyRootpane = (MyJRootPane) getParent();
 
         int rotation = mwe.getWheelRotation();
-        int top = getComponentCountInLayer(JLayeredPane.DEFAULT_LAYER);
-        Component[] component = getComponentsInLayer(JLayeredPane.DEFAULT_LAYER);
-        if (rotation > 0) {
-            moveToBack(component[0]);
-            layersize = (layersize == top) ? 1 : ++layersize;
-        } else {
-            layersize = (layersize == 1) ? top : --layersize;
-            moveToFront(component[top - 1]);
-        }
 
-        MyRootpane.setGlassPane(new MyGlassPane(layersize));
+        this.currentLocation += rotation;
+
+        if (this.currentLocation < 0)
+            this.currentLocation = size-1;
+        else if (this.currentLocation > size-1)
+            this.currentLocation = 0;
+
+        //System.out.println("Rotation: " + rotation + "\n Currentlocation: " + currentLocation + "\nTop: " + top + "\n");
+
+        Component c = this.scrollPanes.get(this.currentLocation);
+        moveToFront(c);
+
+        MyRootpane.setGlassPane(new MyGlassPane(this.currentLocation+1));
         MyRootpane.createGlassPane();
         MyRootpane.updateUI();
-
 
     }
 

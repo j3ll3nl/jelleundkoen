@@ -27,7 +27,7 @@ public class Service implements Runnable{
 
 	    serviceLogNr = control.log(""+request+"\n");
         request.addServiceLogNr(serviceLogNr);
-        
+
         Servlet svlt = new Servlet(control,serviceLogNr,this.contentbase);
         
         OutputStream os = serverSocket.getOutputStream();
