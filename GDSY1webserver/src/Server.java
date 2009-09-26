@@ -11,7 +11,7 @@ public class Server extends ServerSocket implements Runnable {
     public Server(Control contr,InetAddress h, int p, String c) throws IOException{
         super(p,50, h);
 
-        if (Main.debug) if (Main.debug) System.out.println("Debug: Server Constructor"); //debug regel die alleen weergegeven word als Main.debug op true staat
+        if (Main.debug) System.out.println("Debug: Server Constructor"); //debug regel die alleen weergegeven word als Main.debug op true staat
 
         this.contentbase = c;
         this.control = contr;
@@ -32,7 +32,7 @@ public class Server extends ServerSocket implements Runnable {
     }
 
     public void run()
-	{   if (Main.debug) if (Main.debug) System.out.println("Debug: Server run()"); //debug regel die alleen weergegeven word als Main.debug op true staat
+	{   if (Main.debug) System.out.println("Debug: Server run()"); //debug regel die alleen weergegeven word als Main.debug op true staat
 
         try
 		{

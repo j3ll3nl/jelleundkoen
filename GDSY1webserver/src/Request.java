@@ -55,7 +55,7 @@ public class Request extends HashMap<String, String> {
 
     @Override
     protected void finalize() throws Throwable {
-        if (Main.debug) if (Main.debug) System.out.println("Debug: Response finalize(): Request gefinalized."); //debug regel die alleen weergegeven word als Main.debug op true staat
+        if (Main.debug) System.out.println("Debug: Response finalize(): Request gefinalized."); //debug regel die alleen weergegeven word als Main.debug op true staat
         control.log(this.serviceLogNr,"Request gefinalized.");
     }
 }
