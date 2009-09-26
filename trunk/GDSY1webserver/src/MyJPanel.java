@@ -50,7 +50,7 @@ public class MyJPanel extends JPanel {
         this.add(contentbaseLable);
         contentbaseLable.setText("ContentBase: ");
 
-        contentbaseField = new JTextField("C:/"); // Nu kan je bij de contentbase Control.contentbase
+        contentbaseField = new JTextField("G:/HU/Jaar 2/GDSY/"); // Nu kan je bij de contentbase Control.contentbase
         contentbaseField.setName("contentbaseField");
         this.add(contentbaseField);
         contentbaseField.setColumns(23);

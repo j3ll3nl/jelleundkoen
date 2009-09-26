@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Control implements ActionListener, ItemListener {
@@ -21,20 +22,21 @@ public class Control implements ActionListener, ItemListener {
         Gui = new MyJFrame(this);
         Gui.setVisible(true);
 
-        log(1, "");
+        log(1, "1337SERV V0.1\n");
 
     }
 
     public void doStart() throws Exception {
-        log(0, "De webserver is gestart.");
-        log(1, "doStart()");
+        log(0, "De server probeert te starten");
+        log(1, "De server probeert te starten");
         try {
             server = new Server(this,(InetAddress) Gui.hostCombobox.getSelectedItem(), Integer.parseInt(Gui.portField.getText()), Gui.contentbaseField.getText());
             log(1, server.toString());
             thread = new Thread(server);
             log(1, thread.toString());
             thread.start();
-            log(1, "De Thread is gestart");
+            log(1, "De webserver is gestart");
+            log(0, "De webserver is gestart");
         } catch (Exception e) {
             log(0, e.getMessage());
         }
@@ -42,18 +44,36 @@ public class Control implements ActionListener, ItemListener {
     }
 
     public void doStop() {
+        log(0, "De webserver probeert te stoppen.");
         log(1, "De webserver probeert te stoppen.");
+
+        if (Main.debug) System.out.println("Debug: Control doStop(): Webserver probeert te stoppen."); //debug regel die alleen weergegeven word als Main.debug op true staat
+
         try {
-            while (server.threadsClosed()) {server.closeThreads();}
+            while (!server.threadsClosed()) {server.closeThreads();}
             server.close();
             System.gc();
+            log(0, "De webserver is gestopt.");
             log(1, "De webserver is gestopt.");
         } catch (Exception e) {
             log(1, e.getMessage());
+            log(0, e.getMessage());
         }
     }
 
+    public int log(String message) {
+        int i = this.ScrollPanes.size() +1;
+        log(i,message);
+        return i;
+    }
+
     public void log(int i, String message) {
+        Date d = new Date();
+        SimpleDateFormat formatter;
+
+        formatter = new SimpleDateFormat("H:mm:ss",Locale.UK);
+
+        message = "[" + formatter.format(d) + "]\t" + message;
         if (i > 0) {
             try {
                 MyJScrollPane scrollPane = ScrollPanes.get(i - 1);

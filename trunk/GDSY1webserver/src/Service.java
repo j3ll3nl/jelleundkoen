@@ -1,17 +1,19 @@
 
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.*;
 
 
 public class Service implements Runnable{
 
-    private Control control;
+    public Control control;
     private Socket serverSocket;
     private String contentbase;
     private Server server;
+    private int serviceLogNr;
 
     public Service(Control contr,Server s,Socket sk, String contentbase) throws Exception {
+        if (Main.debug) System.out.println("Debug: Service Constructor"); //debug regel die alleen weergegeven word als Main.debug op true staat
+        
         serverSocket = sk;
         this.contentbase = contentbase;
         this.server = s;
@@ -22,9 +24,11 @@ public class Service implements Runnable{
 
         SocketInputStream input = new  SocketInputStream(serverSocket.getInputStream());
 		Request request = new Request(control,input);
-	    control.log(1,""+request);
+
+	    serviceLogNr = control.log(""+request+"\n");
+        request.addServiceLogNr(serviceLogNr);
         
-        Servlet svlt = new Servlet(control,this.contentbase);
+        Servlet svlt = new Servlet(control,serviceLogNr,this.contentbase);
         
         OutputStream os = serverSocket.getOutputStream();
 
@@ -40,9 +44,9 @@ public class Service implements Runnable{
     }
 
     public void closeSocket(){
-        control.log(1,"Socket gesloten");
+        control.log(this.serviceLogNr,"Socket gesloten");
         this.server.removeService(this);
-        control.log(1,"Service afgesloten");
+        control.log(this.serviceLogNr,"Service afgesloten");
 
     }
 
