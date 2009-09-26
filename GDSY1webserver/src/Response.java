@@ -10,9 +10,11 @@ public class Response extends HashMap<String, String> {
     private String entityHeader;
     private String contentType;
     private byte[] entityBody;
+    private int serviceLogNr;
 
-    public Response(Control contr){
+    public Response(int seviceLogNr, Control contr){
         this.control = contr;
+        this.serviceLogNr = seviceLogNr;
     }
     
     public byte[] getBytes(){
@@ -27,11 +29,7 @@ public class Response extends HashMap<String, String> {
         fullResponse += (this.getEntityBody() != null) ? "\nContent-Length:" + this.getEntityBody().length : "";
         fullResponse += (this.getEntityBody() != null) ? "\n\n" : "";
 
-        System.out.println(fullResponse);
-
         if (this.getEntityBody() != null) {
-
-            System.out.println(new String(this.getEntityBody()));
 
             byte[] head = fullResponse.getBytes();
             byte[] body = getEntityBody();
@@ -49,8 +47,14 @@ public class Response extends HashMap<String, String> {
                 content[c] = b;
                 c++;
             }
+            if (Main.debug) System.out.println(new String(content));
+            control.log(this.serviceLogNr,"\n" + new String(content) + "\n");
+
             return content;
         } else {
+            if (Main.debug) System.out.println(fullResponse);
+            control.log(this.serviceLogNr,"\n" + fullResponse + "\n");
+
             return fullResponse.getBytes();
         }
     }
@@ -107,6 +111,7 @@ public class Response extends HashMap<String, String> {
 
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("Response gefinalized.");
+        if (Main.debug) System.out.println("Debug: Response finalize(): Response gefinalized."); //debug regel die alleen weergegeven word als Main.debug op true staat
+        control.log(this.serviceLogNr,"Response gefinalized.");
     }
 }

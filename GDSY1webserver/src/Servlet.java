@@ -4,23 +4,24 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Servlet {
-    public Control control;
+    private Control control;
     public Response response;
     public String contentbase;
     public Request request;
+    private int serviceLogNr;
 
-
-    public Servlet(Control contr,String contentbase){
-        if (Control.debug) System.out.println("Servlet 1"); // Word alleen getoond als de debug var in Control op true staat
+    public Servlet(Control contr,int serviceLogNr, String contentbase){
         this.control = contr;
         this.contentbase = contentbase;
+        this.serviceLogNr = serviceLogNr;
 
-        this.response = new Response(this.control);
+
+        this.response = new Response(serviceLogNr,control);
     }
 
     public Response service(Request r){
         this.request = r;
-        
+
         if (r.getMETHOD().equals("CONNECT"))
             this.CONNECT();
         else if (r.getMETHOD().equals("DELETE"))
@@ -58,7 +59,7 @@ public class Servlet {
 
         if (file.exists()) {
             byte[] body;
-        
+
             try {
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
 
@@ -143,6 +144,6 @@ public class Servlet {
 
     @Override
     protected void finalize() throws Throwable {
-        control.log(1,"Servlet gefinalized.");
+        control.log(this.serviceLogNr,"Servlet gefinalized.");
     }
 }

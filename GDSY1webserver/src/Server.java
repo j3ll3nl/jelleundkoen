@@ -10,8 +10,13 @@ public class Server extends ServerSocket implements Runnable {
 
     public Server(Control contr,InetAddress h, int p, String c) throws IOException{
         super(p,50, h);
+
+        if (Main.debug) System.out.println("Debug: Server Constructor"); //debug regel die alleen weergegeven word als Main.debug op true staat
+
         this.contentbase = c;
         this.control = contr;
+
+        this.services = new HashMap<Service,Thread>();
     }
 
     public boolean isAlive(){
@@ -27,12 +32,12 @@ public class Server extends ServerSocket implements Runnable {
     }
 
     public void run()
-	{
-		try
+	{   if (Main.debug) System.out.println("Debug: Server run()"); //debug regel die alleen weergegeven word als Main.debug op true staat
+
+        try
 		{
 			while(true)
 			{
-				System.out.println(this);
 				Socket serverSocket = super.accept();
 				new Thread(new Service(control,this,serverSocket,contentbase)).start();
 			}

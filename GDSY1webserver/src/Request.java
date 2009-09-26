@@ -5,15 +5,17 @@ import java.util.*;
 
 
 public class Request extends HashMap<String, String> {
-    private Control control;
+    public Control control;
 	private String method=null;
 	private String uri=null;
 	private String version=null;
     private SocketInputStream socketInputStream;
+    private int serviceLogNr;
 
-	public Request(Control contr,SocketInputStream sis) throws IOException
+	public Request(Control contr, SocketInputStream sis) throws IOException
 	{
         this.control = contr;
+
         socketInputStream = new SocketInputStream(sis);
 
 		String requestline = socketInputStream.readLine();
@@ -47,8 +49,13 @@ public class Request extends HashMap<String, String> {
 		return version;
 	}
 
+    public void addServiceLogNr( int serviceLogNr) {
+        this.serviceLogNr = serviceLogNr;
+    }
+
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("Request gefinalized.");
+        if (Main.debug) System.out.println("Debug: Response finalize(): Request gefinalized."); //debug regel die alleen weergegeven word als Main.debug op true staat
+        control.log(this.serviceLogNr,"Request gefinalized.");
     }
 }
