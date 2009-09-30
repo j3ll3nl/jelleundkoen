@@ -49,7 +49,7 @@ public class Server extends ServerSocket implements Runnable {
 		catch(Exception e)
 		{
 			control.log(1,e.getMessage());
-		}
+		} finally{}
 	}
 
     public void addservice(Service s,Thread t) {

@@ -39,7 +39,7 @@ public class Control implements ActionListener, ItemListener {
             log(0, "De webserver is gestart");
         } catch (Exception e) {
             log(0, e.getMessage());
-        }
+        } finally{}
 
     }
 
@@ -58,7 +58,7 @@ public class Control implements ActionListener, ItemListener {
         } catch (Exception e) {
             log(1, e.getMessage());
             log(0, e.getMessage());
-        }
+        } finally{}
     }
 
     public int log(String message) {
@@ -83,7 +83,7 @@ public class Control implements ActionListener, ItemListener {
                 scrollPane.MyJTextPane.setText(message);
                 ScrollPanes.add(scrollPane);
                 Gui.layeredPane.addInLayer(scrollPane);
-            }
+            } finally{}
         } else {
             Gui.errorLable.setText(message);
         }
@@ -99,7 +99,7 @@ public class Control implements ActionListener, ItemListener {
                     doStart();
                 } catch (Exception ex) {
                     log(0, ex.getMessage());
-                }
+                } finally{}
             } else if (Gui.actionButton.getText().equals("Stop")) {
                 Gui.actionButton.setText("Start");
                 Gui.actionButton.setBackground(Color.GREEN);
@@ -107,9 +107,12 @@ public class Control implements ActionListener, ItemListener {
                     doStop();
                 } catch (Exception ex) {
                     log(0, ex.getMessage());
-                }
+                } finally{}
             }
 
+        }
+        if (e.getSource() == Gui.contentbaseField) {
+            if (Main.debug) System.out.println(e.getActionCommand());
         }
 
         if (e.getSource() == Gui.portField) {
