@@ -100,8 +100,9 @@ public class Response extends HashMap<String, String> {
         return this.entityHeader;
     }
     
-    public void setEntityBody(byte[] s, String filetype) {
+    public void setEntityBody(byte[] s, String filetype,String fileName) {
         this.contentType = "Content-Type:" + filetype;
+        this.contentType += "\nContent-Name:" + fileName;
         this.entityBody = s;
     }
 
