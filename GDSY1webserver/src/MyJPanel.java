@@ -25,7 +25,7 @@ public class MyJPanel extends JPanel {
         try {
             adress = InetAddress.getAllByName(InetAddress.getLocalHost().getHostName());
         } catch (UnknownHostException ex) {
-        }
+        } finally{}
 
         ComboBoxModel hostListModel = new DefaultComboBoxModel(adress);
         hostCombobox = new JComboBox();

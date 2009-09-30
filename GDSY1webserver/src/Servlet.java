@@ -66,13 +66,13 @@ public class Servlet {
                 body = new byte[bis.available()];
                 bis.read(body);
 
-                this.response.setStatusLine("200", "OK");
+                this.response.setStatusLine("200", "OK " + "Content-Name:" + getFileName());
                 this.response.setEntityBody(body, filetype);
 
             } catch (IOException e) {
                 e.printStackTrace();
                 this.response.setStatusLine("501", "IOException");
-            }
+            } finally{}
         } else {
             // file bestaat niet
             this.response.setStatusLine("404", "File not found");
