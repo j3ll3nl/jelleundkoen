@@ -17,7 +17,7 @@ public class Response extends HashMap<String, String> {
         this.serviceLogNr = seviceLogNr;
     }
     
-    public byte[] getBytes(){
+    public synchronized byte[] getBytes(){
         this.setGeneralHeader();
         this.setResponseHeader();
         this.setEntityHeader();
@@ -47,8 +47,8 @@ public class Response extends HashMap<String, String> {
                 content[c] = b;
                 c++;
             }
-            if (Main.debug) System.out.println(new String(content));
-            control.log(this.serviceLogNr,"\n" + new String(content) + "\n");
+            if (Main.debug) System.out.println(new String(head));
+            control.log(this.serviceLogNr,"\n" + new String(head) + "\n");
 
             return content;
         } else {
@@ -59,19 +59,19 @@ public class Response extends HashMap<String, String> {
         }
     }
 
-    public void setStatusLine(String statusCode, String reasonPhrase) {
+    public synchronized void setStatusLine(String statusCode, String reasonPhrase) {
         this.statusLine = "HTTP/1.1 " + statusCode + " " + reasonPhrase + " ";
     }
 
-    public void setStatusLine(String statusCode) {
+    public synchronized void setStatusLine(String statusCode) {
         this.statusLine = "HTTP/1.1 " + statusCode + " reason unknown ";
     }
 
-    public String getStatusLine() {
+    public synchronized String getStatusLine() {
         return this.statusLine;
     }
 
-    public void setGeneralHeader() {
+    public synchronized void setGeneralHeader() {
         Date d = new Date();
         SimpleDateFormat formatter;
 
@@ -81,37 +81,37 @@ public class Response extends HashMap<String, String> {
         this.generalHeader = "Date:" + formatter.format(d) + " GMT";// Tue, 15 Nov 1994 08:12:31 GMT;
     }
 
-    public String getGeneralHeader() {
+    public synchronized String getGeneralHeader() {
         return this.generalHeader;
     }
-    public void setResponseHeader() {
+    public synchronized void setResponseHeader() {
         this.responseHeader = "Server:1337SERV/0.1";
     }
 
-    public String getResponseHeader() {
+    public synchronized String getResponseHeader() {
         return this.responseHeader;
     }
 
-    public void setEntityHeader() {
+    public synchronized void setEntityHeader() {
         this.entityHeader = "Allow:GET,HEAD";
     }
 
-    public String getEntityHeader() {
+    public synchronized String getEntityHeader() {
         return this.entityHeader;
     }
     
-    public void setEntityBody(byte[] s, String filetype,String fileName) {
+    public synchronized void setEntityBody(byte[] s, String filetype,String fileName) {
         this.contentType = "Content-Type:" + filetype;
         this.contentType += "\nContent-Name:" + fileName;
         this.entityBody = s;
     }
 
-    public byte[] getEntityBody() {
+    public synchronized byte[] getEntityBody() {
         return this.entityBody;
     }
 
     @Override
-    protected void finalize() throws Throwable {
+    protected synchronized void finalize() throws Throwable {
         if (Main.debug) System.out.println("Debug: Response finalize(): Response gefinalized."); //debug regel die alleen weergegeven word als Main.debug op true staat
         control.log(this.serviceLogNr,"Response gefinalized.");
     }
