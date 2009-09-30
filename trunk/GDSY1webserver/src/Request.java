@@ -34,17 +34,17 @@ public class Request extends HashMap<String, String> {
     
 	}
 
-	public String getMETHOD()
+	public synchronized String getMETHOD()
 	{
 		return method;
 	}
 
-	public String getRequestURI()
+	public synchronized String getRequestURI()
 	{
 		return uri;
 	}
 
-	public String getVERSION()
+	public synchronized String getVERSION()
 	{
 		return version;
 	}
