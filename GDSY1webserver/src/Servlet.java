@@ -66,8 +66,8 @@ public class Servlet {
                 body = new byte[bis.available()];
                 bis.read(body);
 
-                this.response.setStatusLine("200", "OK " + "Content-Name:" + getFileName());
-                this.response.setEntityBody(body, filetype);
+                this.response.setStatusLine("200", "OK");
+                this.response.setEntityBody(body, filetype, getFileName());
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -88,7 +88,7 @@ public class Servlet {
         if (file.exists()) {
 
             this.response.setStatusLine("200", "OK");
-            this.response.setEntityBody(null, filetype);
+            this.response.setEntityBody(null, filetype, getFileName());
         } else {
             // file bestaat niet
             this.response.setStatusLine("404", "File not found");
