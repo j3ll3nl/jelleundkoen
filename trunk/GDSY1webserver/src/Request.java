@@ -11,6 +11,7 @@ public class Request extends HashMap<String, String> {
 	private String version=null;
     private SocketInputStream socketInputStream;
     private int serviceLogNr;
+    private String fullRequest;
 
 	public Request(Control contr, SocketInputStream sis) throws IOException
 	{
@@ -19,6 +20,8 @@ public class Request extends HashMap<String, String> {
         socketInputStream = new SocketInputStream(sis);
 
 		String requestline = socketInputStream.readLine();
+
+        this.fullRequest = " " + requestline;
 
 		String[] inputSplit = requestline.split(" ");
 		method = inputSplit[0];

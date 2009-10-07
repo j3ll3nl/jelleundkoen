@@ -25,8 +25,19 @@ public class Service implements Runnable{
         SocketInputStream input = new  SocketInputStream(serverSocket.getInputStream());
 		Request request = new Request(control,input);
 
-	    serviceLogNr = control.log(""+request+"\n");
         request.addServiceLogNr(serviceLogNr);
+
+        String requestTemp = request.toString();
+        requestTemp = requestTemp.replaceAll("Host", "\nHost");
+        requestTemp = requestTemp.replaceAll("Accept-Encoding", "\nAccept-Encoding");
+        requestTemp = requestTemp.replaceAll("User-Agent", "\nUser-Agent");
+        requestTemp = requestTemp.replaceAll("Connection", "\nConnection");
+        requestTemp = requestTemp.replaceAll("UA-CPU", "\nUA-CPU");
+        requestTemp = requestTemp.replaceAll("Cache-Control", "\nCache-Control");
+        requestTemp = requestTemp.substring(1, requestTemp.length()-1);
+
+
+       	serviceLogNr = control.log("\nMethod=" +request.getMETHOD()+"\nVersion=" + request.getVERSION()+"\n"+requestTemp+"\n");
 
         Servlet svlt = new Servlet(control,serviceLogNr,this.contentbase);
         
