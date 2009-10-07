@@ -20,6 +20,7 @@ public class Servlet {
     }
 
     public Response service(Request r){
+        
         this.request = r;
 
         if (r.getMETHOD().equals("CONNECT"))
@@ -38,6 +39,8 @@ public class Servlet {
             this.PUT();
         else if (r.getMETHOD().equals("TRACE"))
             this.TRACE();
+        
+        control.log(serviceLogNr, "" + getFilePath());
 
         return this.response;
     }
@@ -145,5 +148,9 @@ public class Servlet {
     @Override
     protected void finalize() throws Throwable {
         control.log(this.serviceLogNr,"Servlet gefinalized.");
+    }
+
+    public String getFilePath() {
+        return this.contentbase + getFileName();
     }
 }
