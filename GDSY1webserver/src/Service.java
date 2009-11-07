@@ -37,7 +37,7 @@ public class Service implements Runnable{
         requestTemp = requestTemp.substring(1, requestTemp.length()-1);
 
 
-       	serviceLogNr = control.log("\nMethod=" +request.getMETHOD()+"\nVersion=" + request.getVERSION()+"\n"+requestTemp+"\n");
+       	serviceLogNr = control.log("\n" +request.getMETHOD()+" " + request.getRequestURI() +" "+ request.getVERSION()+"\n"+requestTemp+"\n");
 
         Servlet svlt = new Servlet(control,serviceLogNr,this.contentbase);
         
